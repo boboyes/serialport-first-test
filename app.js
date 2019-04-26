@@ -1,7 +1,7 @@
-var http = require('http');
-var SerialPort = require('serialport');
-var port = new SerialPort('COM2');
-let data2 = 0;
+var http = require('http');   //导入http模块
+var SerialPort = require('serialport');  //导入串口模块
+var port = new SerialPort('COM2');  //实例化串口
+let data2 = 0;  //定义一个全局变量。初次尝试，这个方法有点low
 
 var server = http.createServer(function (request, response) {
     //处理请求和响应
@@ -38,20 +38,21 @@ server.listen(8080, function (error) {
 
 });
 
-port.on('open', function () {
+
+port.on('open', function () {  //监听串口是否开启
     console.log('COM已经连接！')
 });
 
-port.on('error', function (err) {
+port.on('error', function (err) {  //错误处理
     console.log('Error: ', err.message);
 })
 
-port.on('data', function (data) {
+port.on('data', function (data) {  //串口数据接收
 
     data2 = chuli(data);
     console.log('recv: ' + data2);
 });
-function chuli(data){
+function chuli(data){ //串口数据处理函数
     let distance = data.toString("ascii").substr(6, 2).toString('hex');
     let Ndis = parseInt(distance,16)
     return Ndis;

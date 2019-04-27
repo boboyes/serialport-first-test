@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="refresh" content="1"> -->
+    <title>hello</title>
+</head>
+
+<body>
+    <div id="myDiv">
+        <h2>response</h2>
+    </div>
+    <button id="b01" type="button" onclick="qingqiu()">Send</button>
+</body>
+<script type="text/javascript">
+    // setInterval(() => {
+    //     qingqiu();
+    // }, 2000);
+    function qingqiu() {
+        //let newData = "09 6d 67 34 25 64"
+        let newData = {"hello": "09 6d d7 34 25 64"}
+        // console.log(formData)
+        var opts = {
+            method:"POST",
+            headers: {
+                // 'Accept':'application/json',
+                //'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newData),
+        }
+        fetch("http://localhost:8088/api/goods", opts)
+            .then((res) => {
+                return res.json()
+            })
+            .then((data) => {
+                document.getElementById("myDiv").innerHTML = data + 'CM'
+            })
+    }
+</script>
+
+</html>
